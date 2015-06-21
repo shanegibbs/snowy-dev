@@ -1,5 +1,6 @@
 FROM ubuntu:14.04
 
+RUN locale-gen en_US.UTF-8
 ADD build-packages.sh /tmp/build/
 RUN /tmp/build/build-packages.sh
 
@@ -9,7 +10,6 @@ WORKDIR /home/snowy
 ENV HOME /home/snowy
 RUN git clone --recursive https://github.com/shanegibbs/shanegibbs-dots.git /home/snowy/.shanegibbs-dots
 RUN /home/snowy/.shanegibbs-dots/setup.sh
-RUN locale-gen en_US.UTF-8
 
 ENV SRCDIR /home/snowy/src
 
