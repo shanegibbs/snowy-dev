@@ -29,6 +29,7 @@ RUN /tmp/build/build-bison.sh
 
 USER root
 RUN echo snowy ALL=NOPASSWD: ALL > /etc/sudoers.d/snowy
+RUN rm -rf /tmp/build
 
 USER snowy
 CMD /bin/zsh -l
