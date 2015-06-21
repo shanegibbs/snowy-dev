@@ -1,7 +1,7 @@
 export LC_ALL="en_US.UTF-8"
 export PREFIX=$HOME/usr
 export PROC_COUNT=`expr $(grep -c ^processor /proc/cpuinfo) + 1 `
-export PATH=$PREFIX/bin:$PATH
+export PATH=$HOME/build/src/bin:$HOME/build/tests:$PREFIX/bin:$PATH
 
 # pkgconfig
 export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
