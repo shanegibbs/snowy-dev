@@ -25,11 +25,20 @@ ADD build-bison.sh /tmp/build/
 RUN /tmp/build/build-bison.sh
 
 ADD build.sh /usr/local/bin/build
+ADD ssh.key /home/snowy/.ssh/id_rsa
+ADD ssh.key.pub /home/snowy/.ssh/authorized_keys
 
 USER root
-RUN chown snowy.snowy /home/snowy/.zshrc-local
-RUN echo snowy ALL=NOPASSWD: ALL > /etc/sudoers.d/snowy
 RUN rm -rf /tmp/build
 
+RUN apt-get install -y openssh-server
+RUN chown snowy.snowy /home/snowy/.zshrc-local
+RUN chown snowy.snowy -R /home/snowy/.ssh
+RUN chmod 600 /home/snowy/.ssh/*
+RUN echo snowy ALL=NOPASSWD: ALL > /etc/sudoers.d/snowy
+RUN mkdir /var/run/sshd
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
 USER snowy
-CMD /bin/zsh -l
+ENTRYPOINT [ "/bin/zsh", "-c" ]
+CMD [ "/bin/zsh", "-l" ]
