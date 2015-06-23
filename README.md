@@ -1,6 +1,6 @@
 # snowy-lang-dev
 
-Docker container for snowy-lang development. Automatically built by the docker registry: https://registry.hub.docker.com/u/shanegibbs/snowy-lang-dev/
+Docker container for snowy-lang development.
 
 See https://github.com/shanegibbs/snowy-lang
 
