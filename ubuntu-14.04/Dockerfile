@@ -30,6 +30,9 @@ ADD ssh.key.pub /home/snowy/.ssh/authorized_keys
 
 USER root
 RUN rm -rf /tmp/build
+# to pre-seed zsh completion
+RUN ln -s /home/snowy/build/src/bin/snowy /usr/local/bin/snowy
+RUN ln -s /home/snowy/build/src/bin/snowy-default /usr/local/bin/snowy-default
 
 RUN apt-get install -y openssh-server
 RUN chown snowy.snowy /home/snowy/.zshrc-local
