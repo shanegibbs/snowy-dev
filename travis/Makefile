@@ -7,4 +7,4 @@ default:
 	cp -aR $(COMMON) $(BUILD)
 	cp Dockerfile.head  $(BUILD)/Dockerfile
 	cat $(COMMON)/Dockerfile.tail >> $(BUILD)/Dockerfile
-	sudo docker build -t shanegibbs/snowy-dev:14.04 $(BUILD)
+	sudo docker build -t shanegibbs/snowy-dev:travis $(BUILD)

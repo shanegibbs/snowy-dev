@@ -25,8 +25,8 @@ mv compiler-rt-$VERSION.src compiler-rt
 
 unset CC
 unset CXX
-#export CC="$PREFIX/bin/gcc"
-#export CXX="$PREFIX/bin/g++"
+export CC="$PREFIX/bin/gcc"
+export CXX="$PREFIX/bin/g++"
 export CFLAGS="-O3"
 export CXXFLAGS=$CFLAGS
 

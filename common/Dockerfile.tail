@@ -5,16 +5,16 @@ RUN locale-gen en_US.UTF-8
 ADD common/build-packages.sh /tmp/build/
 RUN /tmp/build/build-packages.sh
 
-RUN useradd -m -s /bin/zsh snowy
-USER snowy
-WORKDIR /home/snowy
-ENV HOME /home/snowy
-RUN git clone --recursive https://github.com/shanegibbs/shanegibbs-dots.git /home/snowy/.shanegibbs-dots
-RUN /home/snowy/.shanegibbs-dots/setup.sh
+RUN useradd -m -s /bin/zsh ${SNOWY_USER}
+USER ${SNOWY_USER}
+WORKDIR /home/${SNOWY_USER}
+ENV HOME /home/${SNOWY_USER}
+RUN git clone --recursive https://github.com/shanegibbs/shanegibbs-dots.git /home/${SNOWY_USER}/.shanegibbs-dots
+RUN /home/${SNOWY_USER}/.shanegibbs-dots/setup.sh
 
-ADD common/zshrc-local /home/snowy/.zshrc-local
+ADD common/zshrc-local /home/${SNOWY_USER}/.zshrc-local
 
-ENV SRCDIR /home/snowy/src
+ENV SRCDIR /home/${SNOWY_USER}/src
 
 ADD common/build-gcc.sh /tmp/build/
 RUN /tmp/build/build-gcc.sh
@@ -29,23 +29,23 @@ ADD common/build-bison.sh /tmp/build/
 RUN /tmp/build/build-bison.sh
 
 ADD common/build.sh /usr/local/bin/build
-ADD common/ssh.key /home/snowy/.ssh/id_rsa
-ADD common/ssh.key.pub /home/snowy/.ssh/authorized_keys
+ADD common/ssh.key /home/${SNOWY_USER}/.ssh/id_rsa
+ADD common/ssh.key.pub /home/${SNOWY_USER}/.ssh/authorized_keys
 
 USER root
 RUN rm -rf /tmp/build
 # to pre-seed zsh completion
-RUN ln -s /home/snowy/build/src/bin/snowy /usr/local/bin/snowy
-RUN ln -s /home/snowy/build/src/bin/snowy-default /usr/local/bin/snowy-default
+RUN ln -s /home/${SNOWY_USER}/build/src/bin/${SNOWY_USER} /usr/local/bin/${SNOWY_USER}
+RUN ln -s /home/${SNOWY_USER}/build/src/bin/${SNOWY_USER}-default /usr/local/bin/${SNOWY_USER}-default
 
-RUN chown snowy.snowy /home/snowy/.zshrc-local
-RUN chown snowy.snowy -R /home/snowy/.ssh
-RUN chmod 600 /home/snowy/.ssh/*
-RUN echo snowy ALL=NOPASSWD: ALL > /etc/sudoers.d/snowy
-RUN chmod 0440 /etc/sudoers.d/snowy
+RUN chown ${SNOWY_USER}.${SNOWY_USER} /home/${SNOWY_USER}/.zshrc-local
+RUN chown ${SNOWY_USER}.${SNOWY_USER} -R /home/${SNOWY_USER}/.ssh
+RUN chmod 600 /home/${SNOWY_USER}/.ssh/*
+RUN echo ${SNOWY_USER} ALL=NOPASSWD: ALL > /etc/sudoers.d/${SNOWY_USER}
+RUN chmod 0440 /etc/sudoers.d/${SNOWY_USER}
 RUN mkdir /var/run/sshd
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
-USER snowy
+USER ${SNOWY_USER}
 ENTRYPOINT [ "/bin/zsh", "-c" ]
 CMD [ "/bin/zsh", "-l" ]
