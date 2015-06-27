@@ -1,17 +1,17 @@
 #!/bin/zsh
 
-VERSION=2.5.39
+VERSION=3.0.4
 
 source ~/.zshrc
 set -eu
 
 cd $HOME
 export BUILD="$HOME/build"
-export SRC="$HOME/flex-$VERSION"
+export SRC="$HOME/bison-$VERSION"
 export CFLAGS="-O3"
 export CXXFLAGS=$CFLAGS
 
-curl "http://hivelocity.dl.sourceforge.net/project/flex/flex-$VERSION.tar.bz2" |tar xj
+curl "http://ftp.gnu.org/gnu/bison/bison-$VERSION.tar.gz" |tar xz
 
 mkdir $HOME/build && cd $HOME/build
 
