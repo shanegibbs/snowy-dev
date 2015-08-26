@@ -32,7 +32,7 @@ export CXXFLAGS=$CFLAGS
 
 mkdir $HOME/build && cd $HOME/build
 
-$SRC/configure CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" --prefix=$PREFIX --enable-optimized --enable-targets=x86_64,cpp --disable-terminfo --disable-libedit
+$SRC/configure CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" --prefix=$PREFIX --enable-optimized --enable-targets=x86_64,cpp --enable-shared --disable-terminfo --disable-libedit
 make -j$PROC_COUNT
 make install
 
