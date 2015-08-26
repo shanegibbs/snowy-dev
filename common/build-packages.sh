@@ -5,7 +5,7 @@
 apt-get update
 
 # dependencies
-PACKAGES="libc6-dev-i386 m4 libffi-dev gettext curl wget build-essential libncurses5-dev zlib1g-dev pkg-config groff python automake"
+PACKAGES="libc6-dev-i386 m4 libffi-dev gettext curl wget build-essential libncurses5-dev zlib1g-dev pkg-config groff python automake man"
 
 # dev tools
 PACKAGES="$PACKAGES sudo zsh vim ctags tmux git openssh-server"

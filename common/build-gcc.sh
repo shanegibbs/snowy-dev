@@ -5,7 +5,7 @@ if [ "$DISTRIB_RELEASE" != "12.04" ]; then
   exit 0
 fi
 
-VERSION=4.8.4
+VERSION=4.9.3
 
 source ~/.zshrc
 set -eu

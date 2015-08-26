@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-VERSION=3.6.1
+VERSION=3.6.2
 
 source ~/.zshrc
 set -eu
@@ -25,14 +25,14 @@ mv compiler-rt-$VERSION.src compiler-rt
 
 unset CC
 unset CXX
-export CC="$PREFIX/bin/gcc"
-export CXX="$PREFIX/bin/g++"
+#export CC="$PREFIX/bin/gcc"
+#export CXX="$PREFIX/bin/g++"
 export CFLAGS="-O3"
 export CXXFLAGS=$CFLAGS
 
 mkdir $HOME/build && cd $HOME/build
 
-$SRC/configure CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" --prefix=$PREFIX --enable-optimized --enable-targets=x86_64 --disable-terminfo --disable-libedit
+$SRC/configure CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" --prefix=$PREFIX --enable-optimized --enable-targets=x86_64,cpp --disable-terminfo --disable-libedit
 make -j$PROC_COUNT
 make install
 
