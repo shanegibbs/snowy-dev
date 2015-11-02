@@ -7,8 +7,10 @@ set -eu
 
 cd $HOME
 export BUILD="$HOME/build"
-export SRC="$HOME/llvm-$VERSION.src"
+export SRC="$PREFIX/src/llvm-$VERSION.src"
+mkdir -p "$PREFIX/src"
 
+cd "$PREFIX/src"
 curl "http://llvm.org/releases/$VERSION/llvm-$VERSION.src.tar.xz" |tar xJ
 
 cd $SRC/tools
@@ -23,11 +25,15 @@ cd $SRC/projects
 curl "http://llvm.org/releases/$VERSION/compiler-rt-$VERSION.src.tar.xz" |tar xJ
 mv compiler-rt-$VERSION.src compiler-rt
 
+cd $SRC/tools
+curl "http://llvm.org/releases/$VERSION/lldb-$VERSION.src.tar.xz" |tar xJ
+mv lldb-$VERSION.src lldb
+
 unset CC
 unset CXX
 #export CC="$PREFIX/bin/gcc"
 #export CXX="$PREFIX/bin/g++"
-export CFLAGS="-O3"
+export CFLAGS="-O3 -w"
 export CXXFLAGS=$CFLAGS
 
 mkdir $HOME/build && cd $HOME/build
@@ -36,4 +42,4 @@ $SRC/configure CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" --prefix=$PREFIX --enable-o
 make -j$PROC_COUNT
 make install
 
-rm -rf $SRC $BUILD
+rm -rf $BUILD
